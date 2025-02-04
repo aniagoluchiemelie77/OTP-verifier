@@ -95,10 +95,11 @@ body{
 }
 form button{
     padding: 1.5rem;
-    background-color: #8e8dc1;
+    display: none;
+    cursor: pointer;
+    background-color: #6968bd;
     color: #fafafa;
     border: none;
-    cursor: pointer;
     border-radius: 1rem;
     -webkit-border-radius: 1rem;
     -moz-border-radius: 1rem;
@@ -112,7 +113,16 @@ form button{
     -ms-transition: all .3s ease-in-out;
     -o-transition: all .3s ease-in-out;
 }
-form button .active{
-    pointer-events: auto;
-    background-color: #6968bd;
+.container p{
+    font-size: 1.6rem;
+    padding: 1rem;
+    color: #6968bd;
+}
+.container p a{
+    text-decoration: none;
+    color: #6968bd;
+    cursor: pointer;   
+}
+.container p a:hover{
+    text-decoration: underline;
 }

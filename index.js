@@ -1,39 +1,68 @@
 'use strict';
-const button = document.getElementById('btn');
-const inputs = document.querySelectorAll('input');
+const timerElement = document.querySelector('.timer');
+const verifyButton = document.querySelector('.verifyButton');
+const inputs = document.querySelectorAll('.otp-input');
 
-inputs.forEach((input, index) => {
-    input.addEventListener('keyup', () => {
-        let currentInput = input;
-        let nextInput = input.nextElementSibling;
-        let previousInput = input.previousElementSibling;
-
-            if (currentInput.value.length > 1) {
-                currentInput.value = "";
-                return;
-            } 
-            if(nextInput && nextInput.hasAttrbute('disabled') && currentInput.value !== "") {
-                nextInput.removeAttribute('disabled');
-                nextInput.focus();
-            }
-            if(e.key === 'Backspace') {
-                input.forEach((input, index2) =>{
-                    if(index <= index2 && previousInput) {
-                        input.setAttribute('disabled', true);
-                        currentInput.value = "";
-                        previousInput.focus();
-                    }
-                })
-            }
-            if(!input[0].disabled && !input[4].value !== '') {
-                button.classList.add('active');
-                return;
-            }else{
-                button.classList.remove('active');
-            }
-
+window.onload = function() {
+    startCountdown();
+    setupInputs();
+};
+function startCountdown() {
+    var timeLeft = 60;
+    var interval = setInterval(function() {
+      if (timeLeft <= 0) {
+        clearInterval(interval);
+        var anchor = document.createElement('a');
+        anchor.href = '#';
+        anchor.innerHTML = 'Resend OTP?';
+        timerElement.innerHTML = "";
+        timerElement.appendChild(anchor);
+        disableInputs();
+      } else {
+        timerElement.innerHTML = 'Time remaining: ' + timeLeft + 's';
+      }
+      timeLeft -= 1;
+    }, 1000); // Update every second
+}
+function setupInputs() {
+    inputs.forEach(function(input, index) {
+      input.addEventListener('input', function() {
+        if (input.value.length === 1 && index < inputs.length - 1) {
+          inputs[index + 1].focus();
+        }
+        checkInputs();
+      });
+      input.addEventListener('keydown', function(e) {
+        if (e.key === 'Backspace') {
+          if (input.value.length === 0 && index > 0) {
+            inputs[index - 1].focus();
+            inputs[index - 1].value = '';
+          } else if (input.value.length === 1) {
+            input.value = '';
+          }
+        }
+      });
     });
-})
-window.addEventListener('load', () => {
-    inputs[0].focus();
-})
+  }
+
+  function checkInputs() {
+    var allFilled = true;
+    inputs.forEach(function(input) {
+      if (input.value.length !== 1) {
+        allFilled = false;
+      }
+      if (input.value.length > 1) {
+        input.value = "";
+        return;
+    } 
+    });
+    verifyButton.style.display = allFilled ? 'block' : 'none';
+  }
+
+  function disableInputs() {
+    inputs.forEach(function(input) {
+      input.disabled = true;
+      input.value = " ";
+    });
+    verifyButton.disabled = true;
+  }
