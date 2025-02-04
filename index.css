@@ -14,7 +14,7 @@ html{
 }
 body{
     position: relative;
-    background-color: #fafafa;
+    background: linear-gradient(to left, #9daadcc4, #d4d7e0c4);
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -22,6 +22,7 @@ body{
 }
 .container{
     padding: 2.5rem;
+    background-color: #e8e2e2;
     border-radius: .5rem;
     -webkit-border-radius: .5rem;
     -moz-border-radius: .5rem;
@@ -86,6 +87,7 @@ body{
     -ms-border-radius: .5rem;
     -o-border-radius: .5rem;
     outline: none;
+    background-color: #e8e2e2;
     text-align: center;
     margin-right: 1rem;
     font-size: 1.6rem;
